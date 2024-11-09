@@ -29,20 +29,28 @@ services:
       - postgres
     restart: unless-stopped
 
-  jobapp:
-    container_name: jobapp_container
-    image: jobappimage  # Use the pre-built image name (replace with your image name)
+#  jobapp:
+#    container_name: jobapp_container
+#    image: jobappimage  # Use the pre-built image name (replace with your image name)
+#    ports:
+#      - "8080:8080"  # Exposing port 8080 for Spring Boot
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/postgres  # Connection to the PostgreSQL service
+#      SPRING_DATASOURCE_USERNAME: user
+#      SPRING_DATASOURCE_PASSWORD: pass
+#    networks:
+#      - postgres
+#    depends_on:
+#      - postgres
+#    restart: unless-stopped
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
     ports:
-      - "8080:8080"  # Exposing port 8080 for Spring Boot
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/postgres  # Connection to the PostgreSQL service
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: pass
+      - 9411:9411
     networks:
       - postgres
-    depends_on:
-      - postgres
-    restart: unless-stopped
 
 networks:
   postgres:
